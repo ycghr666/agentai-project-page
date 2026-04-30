@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AgentAI — TAMU CSCE 625 Final Project</title>
+  <meta name="description" content="AgentAI is the final project for TAMU CSCE 625 Artificial Intelligence. The site presents a document question answering system with retrieval over PDFs, MCP-based web search, and voice interaction." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Manrope:wght@500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="site-shell">
+    <header class="hero" id="top">
+      <div class="hero-noise"></div>
+      <nav class="nav container">
+        <a class="brand" href="#top">AgentAI</a>
+        <div class="nav-links">
+          <a href="#overview">Overview</a>
+          <a href="#approach">Approach</a>
+          <a href="#system">System</a>
+          <a href="#tech-views">Tech Views</a>
+          <a href="#showcase">Showcase</a>
+          <a href="#resources">Resources</a>
+        </div>
+      </nav>
+
+      <div class="container hero-grid reveal">
+        <div class="hero-copy">
+          <div class="eyebrow">Final Project · TAMU CSCE 625 Artificial Intelligence</div>
+          <h1>Document question answering with <span>retrieval</span>, web search, and voice interaction.</h1>
+          <p class="hero-text">
+            AgentAI is a web-based document question answering system developed as the final project for TAMU CSCE 625 Artificial Intelligence. It combines retrieval over uploaded PDFs with an MCP-based search path and presents both outputs in a shared chat interface that also supports speech input and playback.
+          </p>
+          <div class="hero-tags">
+            <span>PDF QA</span>
+            <span>RAG</span>
+            <span>MCP Search</span>
+            <span>Speech I/O</span>
+          </div>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="https://github.com/ycghr666/agentai" target="_blank" rel="noopener">View GitHub</a>
+            <a class="btn btn-secondary" href="agentai_final_presentation.pptx">Presentation</a>
+            <a class="btn btn-ghost" href="#showcase">Demo & Screens</a>
+          </div>
+        </div>
+
+        <div class="hero-card glass reveal delay-1">
+          <img src="assets/hero-ui.png" alt="AgentAI interface preview" />
+          <div class="hero-card-caption">
+            <strong>Shared conversation view</strong>
+            <span>Document-grounded and web-grounded responses remain visible as separate outputs.</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="stats-band reveal">
+        <div class="container stats-grid">
+          <article class="stat">
+            <div class="stat-value">2</div>
+            <div class="stat-label">response paths</div>
+          </article>
+          <article class="stat">
+            <div class="stat-value">2</div>
+            <div class="stat-label">interaction modes</div>
+          </article>
+          <article class="stat">
+            <div class="stat-value">1</div>
+            <div class="stat-label">shared interface</div>
+          </article>
+          <article class="stat">
+            <div class="stat-value">React</div>
+            <div class="stat-label">frontend</div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section container" id="overview">
+        <div class="section-head reveal">
+          <p class="section-kicker">Overview</p>
+          <h2>Uploaded documents, external context, one conversation flow</h2>
+          <p class="section-lead">
+            The system is built around a compact interaction loop: upload a file, ask a question, and inspect the response. For each query, the backend can return a document-grounded answer from the uploaded PDF and a separate web-grounded answer based on search results. This keeps local evidence and external context visible as distinct sources in the same interface.
+          </p>
+        </div>
+
+        <div class="feature-grid reveal delay-1">
+          <article class="feature-card">
+            <h3>Document-grounded questions</h3>
+            <p>The document path retrieves relevant passages from the uploaded PDF before generating an answer.</p>
+          </article>
+          <article class="feature-card">
+            <h3>Search as a tool path</h3>
+            <p>The search path is exposed through an MCP client/server workflow backed by SerpAPI.</p>
+          </article>
+          <article class="feature-card">
+            <h3>Single interaction surface</h3>
+            <p>Upload, chat, answer comparison, and voice controls are handled inside one React interface.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section section-soft" id="approach">
+        <div class="container">
+          <div class="split-layout reveal">
+            <div class="sticky-col">
+              <p class="section-kicker">Approach</p>
+              <h2>A retrieval path, a search path, and a shared UI layer</h2>
+              <p>
+                AgentAI separates knowledge access from interaction. The retrieval path handles uploaded documents, the search path handles external context, and the interface keeps both outputs readable in the same conversation. This division makes the current prototype easier to explain, extend, and demonstrate.
+              </p>
+            </div>
+            <div class="timeline-col">
+              <article class="timeline-item card-elevated">
+                <span class="timeline-index">01</span>
+                <div>
+                  <h3>Document retrieval</h3>
+                  <p>The backend loads the PDF, splits it into chunks, computes embeddings, retrieves relevant context, and generates a response from the retrieved passages.</p>
+                </div>
+              </article>
+              <article class="timeline-item card-elevated">
+                <span class="timeline-index">02</span>
+                <div>
+                  <h3>MCP-based search</h3>
+                  <p>A dedicated MCP server exposes a <code>search_web</code> tool. The backend client calls this tool and summarizes the returned web snippets as a second answer path.</p>
+                </div>
+              </article>
+              <article class="timeline-item card-elevated">
+                <span class="timeline-index">03</span>
+                <div>
+                  <h3>Speech interaction</h3>
+                  <p>Speech recognition captures spoken queries and text-to-speech plays back responses, extending the same chat workflow beyond typed input.</p>
+                </div>
+              </article>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section container" id="system">
+        <div class="section-head reveal">
+          <p class="section-kicker">System</p>
+          <h2>React on the frontend, Express at the center, two response paths behind it</h2>
+          <p class="section-lead">
+            The frontend handles file upload, query input, answer rendering, and voice controls. The backend coordinates both the retrieval flow over uploaded PDFs and the MCP-based search flow, then returns both outputs together for display in the conversation view.
+          </p>
+        </div>
+
+        <div class="system-grid reveal delay-1">
+          <div class="system-visual card-frame">
+            <img src="assets/architecture.png" alt="Overall AgentAI architecture" />
+          </div>
+          <div class="system-notes">
+            <div class="note-card">
+              <h3>Retrieval path</h3>
+              <p>Upload → parse → split → embed → retrieve → generate a document-grounded answer.</p>
+            </div>
+            <div class="note-card">
+              <h3>Search path</h3>
+              <p>Query → MCP client → MCP server → web results → summarized external answer.</p>
+            </div>
+            <div class="note-card">
+              <h3>Interface behavior</h3>
+              <p>The chat view keeps the two outputs separate and supports switching between typed and spoken interaction.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section container" id="tech-views">
+        <div class="section-head reveal">
+          <p class="section-kicker">Tech views</p>
+          <h2>Retrieval and MCP as two distinct technical paths</h2>
+          <p class="section-lead">
+            The project separates document-grounded retrieval from web-grounded search. The figures below are included to make those two paths legible at a glance: the retrieval figure summarizes the local document flow, while the MCP figure shows how tool access is routed through a client/server interface.
+          </p>
+        </div>
+
+        <div class="tech-grid reveal delay-1">
+          <figure class="tech-card">
+            <img src="assets/rag-tech.png" alt="Retrieval and tool-use figure used for the RAG explanation" />
+            <figcaption>Retrieval view. The document path retrieves passages from the uploaded PDF before answer generation.</figcaption>
+          </figure>
+          <figure class="tech-card">
+            <img src="assets/mcp-tech.png" alt="MCP architecture figure used for the search path explanation" />
+            <figcaption>MCP view. The search path calls a dedicated <code>search_web</code> tool through an MCP client/server workflow.</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section class="section section-dark" id="showcase">
+        <div class="container">
+          <div class="section-head light reveal">
+            <p class="section-kicker">Showcase</p>
+            <h2>Two demo flows and a sample PDF for quick review</h2>
+            <p class="section-lead">
+              The showcase area is organized around the two clearest interaction loops in the project: one for PDF upload and document search, and one for speech-based questioning and playback. A small public PDF sample is also included so that visitors can preview the kind of file used in a lightweight demo flow.
+            </p>
+          </div>
+
+          <div class="demo-toolbar reveal delay-1">
+            <div class="demo-file-card glass-dark">
+              <div>
+                <p class="demo-file-label">Sample file</p>
+                <h3>Simple public PDF example</h3>
+                <p>Use this lightweight PDF if you want a quick document to inspect alongside the demo videos.</p>
+              </div>
+              <div class="demo-file-actions">
+                <a class="btn btn-secondary" href="sample-demo.pdf" target="_blank" rel="noopener">Open sample PDF</a>
+                <a class="btn btn-ghost light-link" href="sample-demo.pdf" download>Download</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="video-pair reveal delay-2">
+            <article class="video-card glass-dark">
+              <div class="video-placeholder-icon">▶</div>
+              <div>
+                <h3>Demo 01 · PDF upload and document search</h3>
+                <p>Place the short walkthrough here for the upload flow, the document query, and the side-by-side response view.</p>
+                <code>Recommended: embed or link your final demo clip here.</code>
+              </div>
+            </article>
+
+            <article class="video-card glass-dark">
+              <div class="video-placeholder-icon">▶</div>
+              <div>
+                <h3>Demo 02 · Voice query and spoken output</h3>
+                <p>Use the second slot for the speech interaction loop, including recording, answer return, and playback.</p>
+                <code>Keep this clip short and focused on the speech interface.</code>
+              </div>
+            </article>
+          </div>
+
+          <div class="mosaic compact-mosaic reveal delay-3">
+            <figure class="mosaic-card">
+              <img src="assets/dual-answer.png" alt="Dual answer screenshot" />
+              <figcaption>The conversation view keeps the document answer and the search-backed answer separate.</figcaption>
+            </figure>
+            <figure class="mosaic-card">
+              <img src="assets/voice-demo.png" alt="Voice demo screenshot" />
+              <figcaption>The voice controls extend the same interface rather than introducing a separate UI.</figcaption>
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section-soft">
+        <div class="container compare-grid reveal">
+          <article class="compare-card">
+            <p class="section-kicker">Current scope</p>
+            <h2>Prototype boundaries in the present version</h2>
+            <ul class="bullet-list">
+              <li>The vector store is in memory.</li>
+              <li>The current flow tracks one active uploaded file at a time.</li>
+              <li>Search is called through a fixed path rather than selective routing.</li>
+              <li>The interface does not yet surface source citations or access control.</li>
+            </ul>
+          </article>
+          <article class="compare-card">
+            <p class="section-kicker">Next steps</p>
+            <h2>Extensions that follow naturally from the current architecture</h2>
+            <ul class="bullet-list">
+              <li>Persistent vector storage and multi-document retrieval.</li>
+              <li>Selective search invocation based on query intent.</li>
+              <li>Cloud deployment with logging, monitoring, and authentication.</li>
+              <li>Richer evidence display and clearer source attribution in the UI.</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section class="section container" id="resources">
+        <div class="section-head reveal">
+          <p class="section-kicker">Resources</p>
+          <h2>Project materials</h2>
+        </div>
+        <div class="resource-grid reveal delay-1">
+          <a class="resource-card" href="https://github.com/ycghr666/agentai" target="_blank" rel="noopener">
+            <span class="resource-type">Code</span>
+            <h3>GitHub repository</h3>
+            <p>Source code, README, and implementation details for the current system.</p>
+          </a>
+          <a class="resource-card" href="agentai_final_presentation.pptx">
+            <span class="resource-type">Slides</span>
+            <h3>Final presentation</h3>
+            <p>The course presentation used to explain the project scope, design, and demo plan.</p>
+          </a>
+          <a class="resource-card" href="agentai_project_record.pdf">
+            <span class="resource-type">Record</span>
+            <h3>Project development record</h3>
+            <p>The implementation notes and screenshots collected during the project build process.</p>
+          </a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="container footer-grid">
+        <div>
+          <div class="brand footer-brand">AgentAI</div>
+          <p class="footer-copy">Developed as the final project for TAMU CSCE 625 Artificial Intelligence at Texas A&amp;M University.</p>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
